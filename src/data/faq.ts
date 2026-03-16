@@ -1,0 +1,10 @@
+export const faqData = [
+  { q: "How does CompetitorPulse track competitor prices?", a: "CompetitorPulse automatically visits the competitor URLs you specify on a daily (Starter) or hourly (Pro) schedule. Our system detects changes in pricing, content, and inventory status, then sends you an instant email or Slack alert with the exact change." },
+  { q: "Do I need any technical setup?", a: "None at all. Just paste the URLs of the competitor product pages you want to monitor. CompetitorPulse handles everything — no browser extensions, no code, no API integration required." },
+  { q: "What's the difference between Starter and Pro?", a: "Starter ($19/mo) monitors up to 10 URLs with daily checks and email alerts. Pro ($49/mo) monitors up to 50 URLs with hourly checks, screenshot comparisons, price history charts, and Slack integration. Both plans include unlimited alerts." },
+  { q: "How is this different from enterprise tools like Prisync or Competera?", a: "Enterprise price monitoring tools charge $500–$2,000+/month and are designed for large retailers with thousands of SKUs. CompetitorPulse is purpose-built for small businesses that need to track a handful of key competitors without breaking the bank." },
+  { q: "Can I monitor any website?", a: "CompetitorPulse works with most publicly accessible e-commerce product pages. This includes Shopify stores, Amazon listings, WooCommerce sites, and custom-built stores. If a page is publicly viewable, we can likely monitor it." },
+  { q: "What kind of alerts do I get?", a: "You receive instant email alerts whenever a monitored page changes. Alerts include: the old price vs. new price, percentage change, timestamp, and a direct link to the page. Pro users also get screenshot diffs and Slack notifications." },
+  { q: "Is there a free trial?", a: "Yes! Early access members get a 14-day free trial with full Pro features. No credit card required to start." },
+  { q: "Can I cancel anytime?", a: "Absolutely. No contracts, no commitments. Cancel with one click from your dashboard. We believe in earning your business every month." },
+];

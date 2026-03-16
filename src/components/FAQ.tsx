@@ -1,0 +1,28 @@
+"use client";
+import { useState } from "react";
+import { faqData } from "@/data/faq";
+
+export default function FAQ() {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <section id="faq" className="px-4 py-16 sm:px-6 sm:py-20 bg-gray-50">
+      <div className="mx-auto max-w-3xl">
+        <h2 className="mb-2 text-center text-3xl font-bold tracking-tight text-gray-900">Frequently Asked Questions</h2>
+        <p className="text-center text-gray-500 mb-10">Everything you need to know about CompetitorPulse</p>
+        <div className="space-y-3">
+          {faqData.map((item, i) => (
+            <div key={i} className="rounded-xl border border-gray-200 bg-white">
+              <button onClick={() => setOpen(open === i ? null : i)} className="flex w-full items-center justify-between px-5 py-4 text-left">
+                <span className="text-sm font-semibold text-gray-900 pr-4">{item.q}</span>
+                <span className="ml-2 shrink-0 text-gray-400 transition-transform duration-200" style={{ transform: open === i ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+              </button>
+              {open === i && (
+                <div className="border-t border-gray-100 px-5 py-4 text-sm leading-relaxed text-gray-600 animate-fade-in">{item.a}</div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
