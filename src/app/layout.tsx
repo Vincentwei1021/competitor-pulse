@@ -1,3 +1,4 @@
+import FeedbackWidget from "@/components/FeedbackWidget";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
@@ -6,7 +7,7 @@ import "./globals.css";
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-heading", weight: ["400","500","600","700","800"] });
 const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://competitor-pulse.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://competitor-pulse-indol.vercel.app";
 
 export const metadata: Metadata = {
   title: "CompetitorPulse — Competitor Price Monitoring for Small Business | $19/mo",
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={`${jakarta.variable} ${inter.variable} font-sans antialiased`}>
         {children}
+        <FeedbackWidget />
       </body>
     </html>
   );

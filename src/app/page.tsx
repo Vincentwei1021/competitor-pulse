@@ -3,7 +3,7 @@ import WaitlistForm from "@/components/WaitlistForm";
 import FAQ from "@/components/FAQ";
 import { faqData } from "@/data/faq";
 
-const siteUrl = "https://competitor-pulse.vercel.app";
+const siteUrl = "https://competitor-pulse-indol.vercel.app";
 
 const webAppSchema = {
   "@context": "https://schema.org", "@type": "SoftwareApplication",
@@ -29,10 +29,10 @@ export default function Home() {
           <Link href="/" className="font-[family-name:var(--font-heading)] text-xl font-bold text-gray-900 tracking-tight">
             <span className="text-brand-600">●</span> CompetitorPulse
           </Link>
-          <div className="flex items-center gap-1 sm:gap-2">
-            <a href="#pricing" className="rounded-lg px-3 py-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900">Pricing</a>
-            <a href="#faq" className="rounded-lg px-3 py-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900">FAQ</a>
-            <a href="#waitlist" className="rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-700">Get Early Access</a>
+          <div className="flex items-center gap-0.5 sm:gap-2">
+            <a href="#pricing" className="hidden sm:block rounded-lg px-3 py-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900">Pricing</a>
+            <a href="#faq" className="hidden sm:block rounded-lg px-3 py-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900">FAQ</a>
+            <a href="#waitlist" className="rounded-lg bg-brand-600 px-3 py-2.5 text-xs font-bold text-white transition-colors hover:bg-brand-700 sm:px-4 sm:text-sm">Get Early Access</a>
           </div>
         </nav>
       </header>

@@ -2,19 +2,22 @@ import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 
-const DATA_FILE = path.join(process.cwd(), "waitlist.json");
+// Vercel serverless: /tmp is writable (ephemeral per instance)
+const DATA_FILE = path.join("/tmp", "waitlist.json");
 
-async function readWaitlist(): Promise<string[]> {
+interface WaitlistEntry {
+  email: string;
+  timestamp: string;
+  ip?: string;
+}
+
+async function readWaitlist(): Promise<WaitlistEntry[]> {
   try {
     const raw = await fs.readFile(DATA_FILE, "utf-8");
     return JSON.parse(raw);
   } catch {
     return [];
   }
-}
-
-async function writeWaitlist(emails: string[]): Promise<void> {
-  await fs.writeFile(DATA_FILE, JSON.stringify(emails, null, 2), "utf-8");
 }
 
 export async function POST(req: NextRequest) {
@@ -26,22 +29,28 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
     }
 
-    const emails = await readWaitlist();
+    // Always log to stdout (appears in Vercel function logs — permanent record)
+    console.log(`[WAITLIST] ${email} — ${new Date().toISOString()}`);
 
-    if (emails.includes(email)) {
-      return NextResponse.json({ message: "You're already on the waitlist! We'll reach out soon." });
+    // Also persist to /tmp (survives within same instance)
+    try {
+      const entries = await readWaitlist();
+      if (entries.some(e => e.email === email)) {
+        return NextResponse.json({ message: "You're already on the waitlist! We'll reach out soon." });
+      }
+      entries.push({ email, timestamp: new Date().toISOString() });
+      await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2), "utf-8");
+      return NextResponse.json({ message: `Welcome aboard! You're #${entries.length} on the waitlist. We'll email you when early access opens.` });
+    } catch {
+      // /tmp write failed — still return success since we logged to stdout
+      return NextResponse.json({ message: "You're on the list! We'll email you when early access opens." });
     }
-
-    emails.push(email);
-    await writeWaitlist(emails);
-
-    return NextResponse.json({ message: `Welcome aboard! You're #${emails.length} on the waitlist. We'll email you when early access opens.` });
   } catch {
     return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }
 
 export async function GET() {
-  const emails = await readWaitlist();
-  return NextResponse.json({ count: emails.length });
+  const entries = await readWaitlist();
+  return NextResponse.json({ count: entries.length });
 }
